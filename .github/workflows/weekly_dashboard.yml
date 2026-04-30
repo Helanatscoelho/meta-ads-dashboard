@@ -2,8 +2,8 @@ name: Dashboard Meta Ads — Atualização Semanal
 
 on:
   schedule:
-    - cron: "0 11 * * 1"   # toda segunda às 08:00 BRT (11:00 UTC)
-  workflow_dispatch:         # permite rodar manualmente no GitHub
+    - cron: "0 11 * * 1" # toda segunda às 08:00 BRT (11:00 UTC)
+  workflow_dispatch: # permite rodar manualmente no GitHub
 
 jobs:
   build-and-deploy:
@@ -40,9 +40,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
           publish_branch: gh-pages
-          include_files: |
-            index.html
-            dashboard_latest.html
-            dashboard_*.html
           keep_files: false
           commit_message: "dashboard: atualização ${{ github.run_id }}"
