@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Meta Ads — 20/04/2026 a 27/04/2026</title>
+    <style>
+        :root {
+            --meta-blue: #1877F2;
+            --meta-dark: #0a0a0a;
+            --meta-card: #141414;
+            --meta-border: #2a2a2a;
+            --meta-text: #e8e8e8;
+            --meta-muted: #888;
+            --green: #00d67a;
+            --red: #ff4444;
+            --orange: #ff9500;
+            --yellow: #ffd700;
+            --purple: #9b59b6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0d0d0d;
+            color: var(--meta-text);
+            min-height: 100vh;
+        }
+
+        .top-banner {
+            background: linear-gradient(135deg, #1877F2 0%, #0050c8 50%, #003a9e 100%);
+            padding: 30px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .top-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+
+        .banner-logo {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 8px;
+        }
+        .banner-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .banner-period {
+            font-size: 16px;
+            color: rgba(255,255,255,0.85);
+        }
+        .banner-generated {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 8px;
+        }
+
+        .summary-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background: #111;
+            border-bottom: 1px solid var(--meta-border);
+            flex-wrap: wrap;
+        }
+        .summary-item {
+            padding: 20px 30px;
+            text-align: center;
+            border-right: 1px solid var(--meta-border);
+            min-width: 140px;
+        }
+        .summary-item:last-child { border-right: none; }
+        .summary-num {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--meta-blue);
+        }
+        .summary-label {
+            font-size: 11px;
+            color: var(--meta-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .controls {
+            padding: 20px 40px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            background: #111;
+            border-bottom: 1px solid var(--meta-border);
+        }
+        .filter-btn {
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid var(--meta-border);
+            background: transparent;
+            color: var(--meta-text);
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--meta-blue);
+            border-color: var(--meta-blue);
+        }
+        .search-box {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--meta-border);
+            background: #1a1a1a;
+            color: var(--meta-text);
+            font-size: 13px;
+            width: 220px;
+            outline: none;
+        }
+        .search-box:focus { border-color: var(--meta-blue); }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
+            gap: 20px;
+            padding: 30px 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .client-card {
+            background: var(--meta-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--meta-border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .client-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(24,119,242,0.15);
+        }
+        .card-good { border-left: 4px solid var(--green); }
+        .card-bad { border-left: 4px solid var(--red); }
+        .card-ok { border-left: 4px solid var(--meta-blue); }
+        .card-inactive { border-left: 4px solid #444; opacity: 0.6; }
+
+        .card-header {
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--meta-border);
+            background: linear-gradient(to right, #1a1a1a, #141414);
+        }
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .client-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--meta-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .client-info h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .period-label {
+            font-size: 11px;
+            color: var(--meta-muted);
+            margin-top: 2px;
+            display: block;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-good { background: rgba(0,214,122,0.15); color: var(--green); border: 1px solid rgba(0,214,122,0.3); }
+        .badge-bad { background: rgba(255,68,68,0.15); color: var(--red); border: 1px solid rgba(255,68,68,0.3); }
+        .badge-ok { background: rgba(24,119,242,0.15); color: var(--meta-blue); border: 1px solid rgba(24,119,242,0.3); }
+        .badge-inactive { background: rgba(100,100,100,0.15); color: #666; border: 1px solid #333; }
+
+        .metrics-grid {
+            padding: 16px 20px;
+        }
+        .metric-block {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .metric-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 10px 14px;
+            background: rgba(24,119,242,0.1);
+            color: var(--meta-blue);
+            border-bottom: 1px solid rgba(24,119,242,0.2);
+        }
+        .meta-color .metric-section-title {
+            background: rgba(24,119,242,0.08);
+            color: #5b9cf6;
+        }
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 9px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.15s;
+        }
+        .metric-row:hover { background: rgba(255,255,255,0.03); }
+        .metric-row:last-child { border-bottom: none; }
+        .metric-label {
+            font-size: 13px;
+            color: var(--meta-muted);
+        }
+        .metric-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--meta-text);
+        }
+        .metric-value.highlight { color: var(--yellow); font-size: 15px; }
+        .ctr-good { color: var(--green) !important; }
+        .ctr-bad { color: var(--red) !important; }
+        .cpl-good { color: var(--green) !important; }
+        .cpl-bad { color: var(--red) !important; }
+
+        .analysis-section {
+            padding: 0 20px 18px;
+        }
+        .section-block {
+            border-radius: 10px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+        .section-block h4 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 14px;
+        }
+        .section-block ul {
+            list-style: none;
+            padding: 0;
+        }
+        .section-block li {
+            padding: 8px 14px;
+            font-size: 13px;
+            line-height: 1.5;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            color: #ccc;
+        }
+        .section-block li:last-child { border-bottom: none; padding-bottom: 10px; }
+
+        .suggestions-block {
+            background: rgba(24,119,242,0.05);
+            border: 1px solid rgba(24,119,242,0.15);
+        }
+        .suggestions-block h4 { color: #5b9cf6; background: rgba(24,119,242,0.08); }
+
+        .campaigns-block {
+            background: rgba(155,89,182,0.05);
+            border: 1px solid rgba(155,89,182,0.15);
+        }
+        .campaigns-block h4 { color: #b388ff; background: rgba(155,89,182,0.08); }
+
+        .warning-block {
+            background: rgba(255,68,68,0.05);
+            border: 1px solid rgba(255,68,68,0.15);
+        }
+        .warning-block h4 { color: var(--red); background: rgba(255,68,68,0.08); }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--meta-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--meta-border);
+            margin-top: 20px;
+        }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; padding: 15px; }
+            .summary-bar { justify-content: flex-start; overflow-x: auto; }
+            .controls { padding: 15px; }
+            .banner-title { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-banner">
+    <div class="banner-logo">Ao Cubo Marketing · Relatório Semanal</div>
+    <div class="banner-title">📊 Dashboard Meta Ads</div>
+    <div class="banner-period">Período: 20/04/2026 — 27/04/2026</div>
+    <div class="banner-generated">Gerado em 04/05/2026 às 17:15</div>
+</div>
+
+<div class="summary-bar">
+    <div class="summary-item">
+        <div class="summary-num">0</div>
+        <div class="summary-label">Contas Ativas</div>
+    </div>
+    <div class="summary-item">
+        <div class="summary-num">R$ 0,00</div>
+        <div class="summary-label">Investimento Total</div>
+    </div>
+    <div class="summary-item">
+        <div class="summary-num">0</div>
+        <div class="summary-label">Impressões</div>
+    </div>
+    <div class="summary-item">
+        <div class="summary-num">0</div>
+        <div class="summary-label">Cliques</div>
+    </div>
+    <div class="summary-item">
+        <div class="summary-num">0</div>
+        <div class="summary-label">Leads Totais</div>
+    </div>
+    <div class="summary-item">
+        <div class="summary-num">0.00%</div>
+        <div class="summary-label">CTR Médio</div>
+    </div>
+    <div class="summary-item">
+        <div class="summary-num">R$ 0,00</div>
+        <div class="summary-label">CPL Médio</div>
+    </div>
+</div>
+
+<div class="controls">
+    <input class="search-box" type="text" placeholder="🔍 Buscar cliente..." oninput="filterCards(this.value)" />
+    <button class="filter-btn active" onclick="filterStatus('all', this)">Todos</button>
+    <button class="filter-btn" onclick="filterStatus('good', this)">✅ Boa performance</button>
+    <button class="filter-btn" onclick="filterStatus('bad', this)">⚠️ Atenção</button>
+    <button class="filter-btn" onclick="filterStatus('inactive', this)">📴 Sem dados</button>
+</div>
+
+<div class="dashboard-grid" id="grid">
+
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">P</div>
+                    <div>
+                        <h3>Perfiletto</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">H</div>
+                    <div>
+                        <h3>Helena Coelho</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">C</div>
+                    <div>
+                        <h3>Conta 2410</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">M</div>
+                    <div>
+                        <h3>MM Protege</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">E</div>
+                    <div>
+                        <h3>Ergy Diesel</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">M</div>
+                    <div>
+                        <h3>Marcelo Costa</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">C</div>
+                    <div>
+                        <h3>Centro do Sorriso Arapongas</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">S</div>
+                    <div>
+                        <h3>Saniteck</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">L</div>
+                    <div>
+                        <h3>Lady Livretos</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">C</div>
+                    <div>
+                        <h3>Centro do Sorriso Campo Mourão</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">C</div>
+                    <div>
+                        <h3>Cheflera</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">C</div>
+                    <div>
+                        <h3>Clínica Moliah</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">A</div>
+                    <div>
+                        <h3>Arezzo</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">A</div>
+                    <div>
+                        <h3>Ana Capri</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">C</div>
+                    <div>
+                        <h3>Comunidade Trindade Santa</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">M</div>
+                    <div>
+                        <h3>Monique</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">L</div>
+                    <div>
+                        <h3>Loja Trindade Santa</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">C</div>
+                    <div>
+                        <h3>CA - Helena</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">C</div>
+                    <div>
+                        <h3>Centro do Sorriso Rolândia</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">O</div>
+                    <div>
+                        <h3>Odonto Bless Londrina</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">C</div>
+                    <div>
+                        <h3>Castro e Figueira</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">C</div>
+                    <div>
+                        <h3>Carol Meirelles</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">V</div>
+                    <div>
+                        <h3>Vedoi</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="client-card card-inactive">
+            <div class="card-header">
+                <div class="client-info">
+                    <div class="client-avatar">S</div>
+                    <div>
+                        <h3>Star Veículos</h3>
+                        <span class="period-label">📅 20/04/2026 → 27/04/2026</span>
+                    </div>
+                </div>
+                <span class="badge badge-inactive">Sem dados</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-block meta-color">
+                    <div class="metric-section-title">💰 META ADS</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Investimento</span>
+                        <span class="metric-value highlight">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressões</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cliques</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Conversas Iniciadas</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CTR</span>
+                        <span class="metric-value ">0.00%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Mil (CPM)</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Clique</span>
+                        <span class="metric-value">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Todos os Leads</span>
+                        <span class="metric-value highlight">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Custo por Lead</span>
+                        <span class="metric-value ">R$ 0,00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Alcance</span>
+                        <span class="metric-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                
+                <div class="section-block suggestions-block">
+                    <h4>💡 Sugestões de Melhoria</h4>
+                    <ul><li>⚠️ Conta sem investimento no período — verificar se campanhas estão ativas.</li></ul>
+                </div>
+                <div class="section-block campaigns-block">
+                    <h4>🚀 Novas Campanhas a Criar</h4>
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        
+</div>
+
+<div class="footer">
+    Dashboard gerado automaticamente · Ao Cubo Marketing · 04/05/2026 às 17:15<br>
+    Dados via Meta Ads API v19.0 · Período: 20/04/2026 a 27/04/2026
+</div>
+
+<script>
+function filterCards(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.client-card').forEach(card => {
+        const name = card.querySelector('h3').textContent.toLowerCase();
+        card.classList.toggle('hidden', !name.includes(q));
+    });
+}
+
+function filterStatus(status, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.client-card').forEach(card => {
+        if (status === 'all') {
+            card.classList.remove('hidden');
+        } else {
+            card.classList.toggle('hidden', !card.classList.contains('card-' + status));
+        }
+    });
+}
+</script>
+</body>
+</html>
